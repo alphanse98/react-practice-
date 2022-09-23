@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Loginpage from "./router/Loginpage";
+import Home from "./router/Home";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Card from "./router/Card";
+import contaxtVariable from "./router/context";
+import { ReducerVariable,statef } from "./router/Reducer";
+import { useReducer } from "react";
 
 function App() {
+  let [appState, setappState] = useReducer(ReducerVariable, statef);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <contaxtVariable.Provider value={{ appState, setappState }}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Loginpage />}></Route>
+            <Route path="home" element={<Home />}></Route>
+            <Route path="card" element={<Card />}></Route>
+          </Routes>
+        </BrowserRouter>
+      </contaxtVariable.Provider>
     </div>
   );
 }
